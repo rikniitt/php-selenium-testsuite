@@ -8,7 +8,7 @@ class ExampleWebapp extends PHPUnitSeleniumTestCase {
     {
         $this->url("/index.html");
 
-        $this->assertEquals("Php Selenium Testsuite - Example app", $this->title());
+        $this->assertEquals("Php Selenium Testsuite - Example webapp", $this->title());
     }
 
 
