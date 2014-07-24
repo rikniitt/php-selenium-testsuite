@@ -7,7 +7,6 @@
     <property name="seleniumPort" value="4444" />
     <property name="seleniumVersion" value="2.42.2" />
 
-
     <target name="clean" description="Cleanup for tests.">
         <delete dir="${reportDir}" />
         <delete dir="${logDir}" />

@@ -37,7 +37,7 @@ class ExampleWebapp extends PHPUnitSeleniumTestCase {
         $this->byId('email')->value('you@example.com');
         $this->clickOnElement("submit");
 
-        $this->assertEquals('Thanks!', $this->byTag('h1')->text());
+        $this->assertEquals('Thanks', $this->byTag('h1')->text());
     }
 
 
@@ -52,6 +52,5 @@ class ExampleWebapp extends PHPUnitSeleniumTestCase {
 
         $this->fail("Failed on purpose. Check out folder reports/failures.");
     }
-
 }
 

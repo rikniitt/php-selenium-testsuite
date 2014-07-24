@@ -4,14 +4,14 @@ php-selenium-testsuite
 Basic php selenium end-to-end testsuite template.
 You will need at least PHP (5.3.2+), Java runtime environment and [ant](http://ant.apache.org).
 
-## INSTALL
+## Install
 
 Run `ant install`. This will download [composer](https://getcomposer.org/doc/) and use it
 to install [phpunit](http://phpunit.de/documentation.html) and
 [phpunit-selenium](https://github.com/sebastianbergmann/phpunit-selenium). It will also download
 [selenium server](http://www.seleniumhq.org/download/).
 
-## TESTS
+## Tests
 
 Run `ant test`. This will start the selenium server before running tests and kill it
 afterwards. Test reports are generated to folder *reports/*.

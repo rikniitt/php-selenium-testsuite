@@ -4,6 +4,7 @@
 abstract class Config {
 
     const SELENIUM_HOST = 'localhost';
+
     const SELENIUM_PORT = 4444;
 
     const BROWSER = 'firefox';

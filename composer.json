@@ -1,16 +1,12 @@
 {
     "name": "rikniitt/php-selenium-testsuite",
     "description": "Basic php selenium end-to-end testsuite template.",
-    "authors": [
-        {
-            "name": "rikniitt",
-            "email": "riku.niittymaki@gmail.com"
-        }
-    ],
+
     "require": {
         "phpunit/phpunit": "4.1.4",
         "phpunit/phpunit-selenium": "1.3.3"
     },
+
     "autoload": {
         "psr-0": {
             "": [

@@ -1,8 +1,10 @@
 <?php
 
+
 class PHPUnitSeleniumTestCase extends PHPUnit_Extensions_Selenium2TestCase {
 
     protected $captureScreenshotOnFailure = FALSE;
+
 
     protected function setUp()
     {
