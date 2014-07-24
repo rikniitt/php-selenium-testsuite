@@ -13,6 +13,31 @@
         <delete dir="${logDir}" />
     </target>
 
+    <target name="composer-get" description="Download composer.">
+        <exec executable="/bin/bash" dir="${basedir}">
+            <arg value="-c" />
+            <arg value="curl -s https://getcomposer.org/installer | php" />
+        </exec>
+    </target>
+
+    <target name="composer-install" description="Install PHP depencies with composer.">
+        <exec executable="php">
+            <arg value="${basedir}/composer.phar" />
+            <arg value="install" />
+        </exec>
+    </target>
+
+    <target name="selenium-get" description="Download selenium server.">
+        <get src="http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-${seleniumVersion}.jar"
+             dest="${basedir}/selenium/" />
+    </target>
+
+    <target name="install" description="Install and download needed files.">
+        <antcall target="composer-get" />
+        <antcall target="composer-install" />
+        <antcall target="selenium-get" />
+    </target>
+
     <target name="phpunit" description="Run PHPUnit.">
         <exec executable="${vendorBinDir}/phpunit">
             <arg value="--verbose" />
