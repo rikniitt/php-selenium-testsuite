@@ -12,9 +12,7 @@
 
     <testsuites>
         <testsuite name="SeleniumEndToEndTests">
-            <directory suffix=".php">
-                ./tests/features
-            </directory>
+            <directory suffix=".php">./tests/features</directory>
         </testsuite>
     </testsuites>
 </phpunit>

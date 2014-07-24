@@ -41,6 +41,7 @@
     <target name="phpunit" description="Run PHPUnit.">
         <exec executable="${vendorBinDir}/phpunit">
             <arg value="--verbose" />
+            <arg value="--strict" />
             <arg value="--configuration=${basedir}/phpunit.xml" />
             <arg value="--log-junit=${reportDir}/e2e-tests.xml" />
             <arg value="--testdox-html=${reportDir}/e2e-tests.html" />
@@ -49,10 +50,21 @@
 
     <target name="prepare" description="Prepare for tests.">
         <mkdir dir="${reportDir}" />
+        <mkdir dir="${reportDir}/failures" />
         <mkdir dir="${logDir}" />
 
         <touch file="${logDir}/selenium_server.log" />
         <touch file="${logDir}/selenium_server_stop.log" />
+    </target>
+
+    <target name="serve-example-app" description="Serve example web app with python SimpleHTTPServer.">
+        <echo>Starting Python SimpleHTTPServer</echo>
+        <echo>Point your web-browser to http://localhost:8080/index.html and see it in action!</echo>
+        <exec executable="python" dir="${basedir}/example_app">
+            <arg value="-m" />
+            <arg value="SimpleHTTPServer" />
+            <arg value="8080" />
+        </exec>
     </target>
 
     <target name="start-selenium" description="Start Selenium standalone server">
