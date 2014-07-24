@@ -42,8 +42,8 @@
             <arg value="--verbose" />
             <arg value="--strict" />
             <arg value="--configuration=${basedir}/phpunit.xml" />
-            <arg value="--log-junit=${reportDir}/e2e-tests.xml" />
-            <arg value="--testdox-html=${reportDir}/e2e-tests.html" />
+            <arg value="--log-junit=${reportDir}/selenium-tests.xml" />
+            <arg value="--testdox-html=${reportDir}/selenium-tests.html" />
         </exec>
     </target>
 
@@ -56,7 +56,7 @@
         <touch file="${logDir}/selenium_server_stop.log" />
     </target>
 
-    <target name="serve-example-app" description="Serve example web app with python SimpleHTTPServer.">
+    <target name="serve-example-app" description="Serve example webapp with python SimpleHTTPServer.">
         <echo>Starting Python SimpleHTTPServer</echo>
         <echo>Point your web-browser to http://localhost:8080/index.html and see it in action!</echo>
         <exec executable="python" dir="${basedir}/example_app">
@@ -66,7 +66,7 @@
         </exec>
     </target>
 
-    <target name="start-selenium" description="Start Selenium standalone server">
+    <target name="start-selenium" description="Start Selenium standalone server.">
         <echo>Starting Selenium Server at port ${seleniumPort}</echo>
         <java jar="${basedir}/selenium/selenium-server-standalone-${seleniumVersion}.jar" fork="true" spawn="true">
             <arg line="-port ${seleniumPort}" />
@@ -78,7 +78,7 @@
         </waitfor>
     </target>
 
-    <target name="stop-selenium" description="Stop Selenium standalone server">
+    <target name="stop-selenium" description="Stop Selenium standalone server.">
         <echo>Stopping Selenium Server at port ${seleniumPort}</echo>
         <get dest="${logDir}/selenium_server_stop.log" ignoreerrors="true"
              src="http://0.0.0.0:${seleniumPort}/selenium-server/driver/?cmd=shutDownSeleniumServer" />
