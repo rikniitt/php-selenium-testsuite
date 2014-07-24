@@ -59,7 +59,7 @@
     <target name="serve-example-app" description="Serve example webapp with python SimpleHTTPServer.">
         <echo>Starting Python SimpleHTTPServer</echo>
         <echo>Point your web-browser to http://localhost:8080/index.html and see it in action!</echo>
-        <exec executable="python" dir="${basedir}/example_app">
+        <exec executable="python" dir="${basedir}/example_webapp">
             <arg value="-m" />
             <arg value="SimpleHTTPServer" />
             <arg value="8080" />
