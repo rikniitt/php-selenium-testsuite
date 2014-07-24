@@ -19,15 +19,29 @@ class PHPUnitSeleniumTestCase extends PHPUnit_Extensions_Selenium2TestCase {
         $this->setBrowserUrl(Config::BASE_URL);
     }
 
+
     protected function tearDown()
+    {
+        if ($this->_hasFailed())
+        {
+            $this->_saveScreenshot();
+        }
+    }
+
+
+    private function _hasFailed()
     {
         $status = $this->getStatus();
 
-        if ($status == \PHPUnit_Runner_BaseTestRunner::STATUS_ERROR || $status == \PHPUnit_Runner_BaseTestRunner::STATUS_FAILURE)
-        {
-            $file_name = __DIR__ . "/" .Config::SCREENSHOT_DIR . get_class($this) . '_' . $this->getName() . '_' . date('Y-m-d_H:i:s') . '.png';
-            file_put_contents($file_name, $this->currentScreenshot());
-        }
+        return ($status === \PHPUnit_Runner_BaseTestRunner::STATUS_ERROR || $status === \PHPUnit_Runner_BaseTestRunner::STATUS_FAILURE);
+    }
+
+
+    private function _saveScreenshot()
+    {
+        $path = realpath(__DIR__ . "/" .Config::SCREENSHOT_DIR) . "/";
+        $name = get_class($this) . '_' . $this->getName() . '_' . date('Y-m-d_H:i:s') . '.png';
+        file_put_contents($path . $name, $this->currentScreenshot());
     }
 }
 
