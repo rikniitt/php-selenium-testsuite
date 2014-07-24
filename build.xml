@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PhpSeleniumTestsuite" default="test">
+
+    <property name="vendorBinDir" value="${basedir}/vendor/bin" />
+    <property name="reportDir" value="${basedir}/reports" />
+
+
+    <target name="clean" description="Cleanup for tests.">
+        <delete dir="${reportDir}" />
+    </target>
+
+    <target name="prepare" description="Prepare for tests.">
+        <mkdir dir="${reportDir}" />
+    </target>
+
+
+    <target name="phpunit" description="Run PHPUnit.">
+        <exec executable="${vendorBinDir}/phpunit">
+            <arg value="--verbose" />
+            <arg value="--configuration=${basedir}/phpunit.xml" />
+            <arg value="--log-junit=${reportDir}/e2e-tests.xml" />
+            <arg value="--testdox-html=${reportDir}/e2e-tests.html" />
+        </exec>
+    </target>
+
+
+    <target name="test" description="Run end-to-end tests with PHPUnit and Selenium.">
+        <antcall target="clean" />
+        <antcall target="prepare" />
+        <antcall target="phpunit" />
+    </target>
+
+</project>
