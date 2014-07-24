@@ -3,16 +3,15 @@
 
     <property name="vendorBinDir" value="${basedir}/vendor/bin" />
     <property name="reportDir" value="${basedir}/reports" />
+    <property name="logDir" value="${basedir}/logs" />
+    <property name="seleniumPort" value="4444" />
+    <property name="seleniumVersion" value="2.42.2" />
 
 
     <target name="clean" description="Cleanup for tests.">
         <delete dir="${reportDir}" />
+        <delete dir="${logDir}" />
     </target>
-
-    <target name="prepare" description="Prepare for tests.">
-        <mkdir dir="${reportDir}" />
-    </target>
-
 
     <target name="phpunit" description="Run PHPUnit.">
         <exec executable="${vendorBinDir}/phpunit">
@@ -23,11 +22,38 @@
         </exec>
     </target>
 
+    <target name="prepare" description="Prepare for tests.">
+        <mkdir dir="${reportDir}" />
+        <mkdir dir="${logDir}" />
+
+        <touch file="${logDir}/selenium_server.log" />
+        <touch file="${logDir}/selenium_server_stop.log" />
+    </target>
+
+    <target name="start-selenium" description="Start Selenium standalone server">
+        <echo>Starting Selenium Server at port ${seleniumPort}</echo>
+        <java jar="${basedir}/selenium/selenium-server-standalone-${seleniumVersion}.jar" fork="true" spawn="true">
+            <arg line="-port ${seleniumPort}" />
+            <arg line="-log ${logDir}/selenium_server.log" />
+        </java>
+        <!-- Without this waitfor phpunit task may start before selenium server is up -->
+        <waitfor maxwait="10" maxwaitunit="second" checkevery="500">
+            <http url="http://0.0.0.0:${seleniumPort}/selenium-server/driver/?cmd=getLogMessages" />
+        </waitfor>
+    </target>
+
+    <target name="stop-selenium" description="Stop Selenium standalone server">
+        <echo>Stopping Selenium Server at port ${seleniumPort}</echo>
+        <get dest="${logDir}/selenium_server_stop.log" ignoreerrors="true"
+             src="http://0.0.0.0:${seleniumPort}/selenium-server/driver/?cmd=shutDownSeleniumServer" />
+    </target>
 
     <target name="test" description="Run end-to-end tests with PHPUnit and Selenium.">
         <antcall target="clean" />
         <antcall target="prepare" />
+        <antcall target="start-selenium" />
         <antcall target="phpunit" />
+        <antcall target="stop-selenium" />
     </target>
 
 </project>
